@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Web | Class VI SDN Sobontoro II</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #007aff;
+            --bg-ios: #f2f2f7;
+            --glass: rgba(255, 255, 255, 0.75);
+            --text-dark: #1c1c1e;
+            --ios-ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background-color: var(--bg-ios);
+            color: var(--text-dark);
+            padding-top: 80px;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- NAVIGATION GLASSMORPHISM --- */
+        .top-bar {
+            position: fixed; top: 0; width: 100%; height: 64px;
+            background: var(--glass); backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            z-index: 2000; display: flex; align-items: center;
+            padding: 0 5%; border-bottom: 0.5px solid rgba(0,0,0,0.1);
+            justify-content: space-between;
+        }
+        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand img { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1.5px solid #fff; }
+
+        #progress-bar { 
+            position: fixed; top: 64px; left: 0; height: 3px; 
+            background: var(--primary); z-index: 2001; transition: width 0.3s var(--ios-ease); 
+        }
+
+        /* --- HERO & COUNTDOWN --- */
+        .hero { text-align: center; padding: 40px 20px; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; }
+
+        .countdown-container { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
+        .count-box { 
+            background: #fff; padding: 15px; border-radius: 20px; min-width: 75px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.02);
+        }
+        .count-box span { display: block; font-size: 1.6rem; font-weight: 800; color: var(--primary); }
+        .count-box label { font-size: 0.6rem; font-weight: 700; opacity: 0.6; text-transform: uppercase; }
+
+        /* --- CARDS SYSTEM --- */
+        section { max-width: 850px; margin: 0 auto; padding: 20px; }
+        .card { 
+            background: white; border-radius: 32px; padding: 35px; 
+            margin-bottom: 30px; border: 1px solid rgba(0,0,0,0.03); 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+        }
+
+        /* --- STRUKTUR KELAS GRID --- */
+        .struktur-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px; margin-top: 25px;
+        }
+        .member-card {
+            background: #fbfbfd; border-radius: 24px; padding: 20px 10px;
+            text-align: center; transition: all 0.5s var(--ios-ease);
+            border: 1px solid transparent;
+        }
+        .member-card:hover { 
+            background: #fff; transform: translateY(-10px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06); border: 1px solid var(--primary);
+        }
+        .member-photo { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .symbol-c { width: 85px; height: 85px; border-radius: 50%; background: #000; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 800; margin: 0 auto 12px; }
+        .jabatan { font-size: 0.65rem; font-weight: 800; color: var(--primary); letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
+
+        /* --- INTERACTIVE BUTTONS --- */
+        .social-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
+        .social-btn {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            padding: 18px; border-radius: 22px; text-decoration: none;
+            font-weight: 700; font-size: 0.95rem; transition: all 0.4s var(--ios-ease);
+            border: 1px solid rgba(0,0,0,0.05); position: relative; overflow: hidden;
+        }
+        .social-btn:active { transform: scale(0.92); filter: brightness(0.9); }
+        .social-btn i { transition: 0.4s var(--ios-ease); }
+        .social-btn:hover i { transform: rotate(10deg) scale(1.2); }
+
+        .btn-ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: #fff; }
+        .btn-tt { background: #000; color: #fff; }
+        .btn-gm { background: #fff; color: #DB4437; border: 1px solid #eee; }
+
+        /* --- MUSIC PLAYER --- */
+        #music-player {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
+            padding: 10px 25px; border-radius: 50px; display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); z-index: 3000; border: 1px solid rgba(255,255,255,0.4);
+        }
+        .play-btn { width: 40px; height: 40px; background: var(--primary); border: none; border-radius: 50%; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        /* --- UTILS --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s var(--ios-ease); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .angkatan-img { width: 100%; border-radius: 24px; overflow: hidden; margin: 20px 0; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .angkatan-img img { width: 100%; display: block; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .struktur-grid { grid-template-columns: repeat(2, 1fr); }
+            .card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-audio" loop><source src="musik.mp3" type="audio/mpeg"></audio>
+
+    <div id="progress-bar"></div>
+
+    <nav class="top-bar">
+        <div class="brand">
+            <img src="it.jpeg" alt="Logo">
+            <span style="font-weight: 800; font-size: 0.9rem;" id="greeting-msg">Loading...</span>
+        </div>
+        <a href="https://www.google.com/maps/search/SDN+Sobontoro+II" target="_blank" style="text-decoration: none; color: var(--primary); font-weight: 800; font-size: 0.75rem;">
+            <i class="fa-solid fa-location-dot"></i> MAPS
+        </a>
+    </nav>
+
+    <header class="hero">
+        <h1>SDN Sobontoro II</h1>
+        <div class="countdown-container">
+            <div class="count-box"><span id="days">00</span><label>HARI</label></div>
+            <div class="count-box"><span id="hours">00</span><label>JAM</label></div>
+            <div class="count-box"><span id="mins">00</span><label>MENIT</label></div>
+        </div>
+        <p style="color: #86868b; font-weight: 600;">Menuju Kelulusan Class VI 2026</p>
+    </header>
+
+    <section>
+        <div class="card reveal">
+            <h2 style="font-weight: 800; margin-bottom: 5px;">Struktur Kelas</h2>
+            <p style="color: #86868b; font-size: 0.9rem; margin-bottom: 20px;">Pemimpin Class VI "The King"</p>
+            
+            <div class="struktur-grid">
+                <div class="member-card">
+                    <img src="ketua.jpeg" class="member-photo">
+                    <div class="jabatan">KETUA KELAS</div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">Airlangga</div>
+                </div>
+                <div class="member-card">
+                    <img src="wakel.jpeg" class="member-photo">
+                    <div class="jabatan">WAKIL KETUA</div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">Wakil Ketua</div>
+                </div>
+                <div class="member-card">
+                    <img src="b1.jpeg" class="member-photo">
+                    <div class="jabatan">BENDAHARA 1</div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">Bendahara 1</div>
+                </div>
+                <div class="member-card">
+                    <img src="b2.jpeg" class="member-photo">
+                    <div class="jabatan">BENDAHARA 2</div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">Bendahara 2</div>
+                </div>
+                <div class="member-card">
+                    <img src="SEKTERTARIS.jpeg" class="member-photo">
+                    <div class="jabatan">SEKRETARIS</div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">Sekretaris</div>
+                </div>
+                <div class="member-card">
+                    <div class="symbol-c">C</div>
+                    <div class="jabatan">SEKSI ACARA</div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">Koordinator</div>
+                </div>
+                <div class="member-card">
+                    <img src="keamanan.jpeg" class="member-photo">
+                    <div class="jabatan">KEAMANAN</div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">Petugas</div>
+                </div>
+                <div class="member-card">
+                    <img src="KEBERSIHAN.jpeg" class="member-photo">
+                    <div class="jabatan">KEBERSIHAN</div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">Petugas</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card reveal" style="background: var(--text-dark); color: white;">
+            <h2 style="font-weight: 800; margin-bottom: 15px;">Visi & Misi Angkatan</h2>
+            <p style="opacity: 0.8; font-size: 0.95rem; margin-bottom: 20px;">Membangun generasi yang berani bermimpi dan bekerja keras untuk mewujudkannya.</p>
+            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 20px; border-left: 4px solid var(--primary);">
+                <p style="font-style: italic; font-weight: 600;">"Class VI is the King. Will, Work, Win."</p>
+            </div>
+        </div>
+
+        <div class="card reveal">
+            <h2 style="font-weight: 800; margin-bottom: 10px;">Foto Angkatan</h2>
+            <div class="angkatan-img"><img src="pui.jpeg" alt="Angkatan"></div>
+        </div>
+
+        <div class="card reveal">
+            <h2 style="font-weight: 800; margin-bottom: 15px;">Mari Terhubung</h2>
+            <div class="social-container">
+                <a href="https://www.instagram.com/p/DFzWwP2vPAn/?igsh=MTZkZG54c2N3cnlkYQ==" target="_blank" class="social-btn btn-ig">
+                    <i class="fa-brands fa-instagram fa-xl"></i> Instagram
+                </a>
+                <a href="https://www.tiktok.com/@clv_sobontoro2?_t=ZS-8u8l0mI3F9O&_r=1" target="_blank" class="social-btn btn-tt">
+                    <i class="fa-brands fa-tiktok fa-xl"></i> TikTok
+                </a>
+                <a href="mailto:clvionsobontoro2@gmail.com" class="social-btn btn-gm">
+                    <i class="fa-solid fa-envelope fa-xl"></i> Gmail
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="music-player">
+        <button class="play-btn" id="play-pause"><i class="fa-solid fa-play"></i></button>
+        <span style="font-size: 0.8rem; font-weight: 700;" id="music-label">Musik</span>
+    </div>
+
+    <footer style="text-align: center; padding: 60px 20px; color: #86868b; font-size: 0.75rem; font-weight: 600;">
+        &copy; 2026 SDN Sobontoro II Balen Bojonegoro.
+    </footer>
+
+    <script>
+        // 1. DYNAMIC GREETING
+        const h = new Date().getHours();
+        const msg = h<11 ? "Pagi, King!" : h<15 ? "Siang, King!" : h<18 ? "Sore, King!" : "Malam, King!";
+        document.getElementById('greeting-msg').innerText = msg;
+
+        // 2. SMOOTH REVEAL ON SCROLL
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // 3. MUSIC PLAYER CONTROL
+        const audio = document.getElementById('bg-audio');
+        const playBtn = document.getElementById('play-pause');
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) { 
+                audio.play(); playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>'; 
+                document.getElementById('music-label').innerText = "Playing";
+            } else { 
+                audio.pause(); playBtn.innerHTML = '<i class="fa-solid fa-play"></i>'; 
+                document.getElementById('music-label').innerText = "Paused";
+            }
+        });
+
+        // 4. COUNTDOWN LOGIC
+        const targetDate = new Date("June 15, 2026 08:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        }, 1000);
+
+        // 5. PROGRESS BAR SCROLL
+        window.onscroll = () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById("progress-bar").style.width = (winScroll / height) * 100 + "%";
+        };
+    </script>
+</body>
+</html>
